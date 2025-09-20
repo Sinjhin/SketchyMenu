@@ -1,0 +1,290 @@
+# Looks in ~/.aerospace.toml
+# Then $XDG_CONFIG_HOME/.config/aerospace.toml ($XDG_CONFIG_HOME is usually ~/.config/
+
+# Settings
+start-at-login = true
+
+# Available commands : https://nikitabobko.github.io/AeroSpace/commands
+after-startup-command = [
+    'exec-and-forget sketchybar',
+    # 'exec-and-forget borders'
+]
+exec-on-workspace-change = ['/bin/bash', '-c',
+    'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+]
+# See https://nikitabobko.github.io/AeroSpace/commands#move-mouse
+# on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+# Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+# See: https://nikitabobko.github.io/AeroSpace/guide#layouts
+accordion-padding = 30
+default-root-container-layout = 'tiles'  # Possible values: tiles|accordion
+default-root-container-orientation = 'auto'  # Possible values: horizontal|vertical|auto
+# See https://nikitabobko.github.io/AeroSpace/guide#on-focus-changed-callbacks
+# Also see: https://nikitabobko.github.io/AeroSpace/goodies#disable-hide-app
+automatically-unhide-macos-hidden-apps = false
+# See https://nikitabobko.github.io/AeroSpace/guide#key-mapping
+[key-mapping]
+    preset = 'qwerty'  # Possible values: (qwerty|dvorak|colemak)
+[gaps]
+    inner.horizontal = [
+        { monitor.1 = 8 },
+        { monitor.2 = 8 },
+        8
+    ]
+    inner.vertical = [
+        { monitor.1 = 0 },
+        { monitor.2 = 0 },
+        0
+    ]
+    outer.left = [
+        { monitor.1 = 0 },
+        { monitor.2 = 8 },
+        8
+    ]
+    outer.right = [
+        { monitor.1 = 0 },
+        { monitor.2 = 8 },
+        8
+    ]
+    outer.top = [
+        { monitor.1 = 10 },
+        { monitor.2 = 48 },
+        # { monitor.2 = 10 },
+        38
+    ]
+    outer.bottom = [
+        { monitor.1 = 8 },
+        { monitor.2 = 8 },
+        8
+    ]
+
+# We can do a lot with exec eventually
+# [exec]
+#     inherit-env-vars = true #  <-This breaks some bindings for some reason
+# [exec.env-vars]
+#     PATH = '/opt/homebrew/bin:/opt/homebrew/sbin:${PATH}'
+
+# 'main' binding mode declaration
+# See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
+[mode.main.binding]
+    # See: https://nikitabobko.github.io/AeroSpace/commands#layout
+    alt-slash = 'layout tiles horizontal vertical'
+    # alt-comma = 'layout accordion horizontal vertical'
+
+    # See: https://nikitabobko.github.io/AeroSpace/commands#focus
+    alt-h = 'focus left'
+    alt-j = 'focus down'
+    alt-k = 'focus up'
+    alt-l = 'focus right'
+
+    # See: https://nikitabobko.github.io/AeroSpace/commands#move
+    alt-shift-h = 'move left'
+    alt-shift-j = 'move down'
+    alt-shift-k = 'move up'
+    alt-shift-l = 'move right'
+
+    alt-shift-space = 'layout floating tiling'
+
+    # See: https://nikitabobko.github.io/AeroSpace/commands#resize
+    alt-minus = 'resize smart -50'
+    alt-equal = 'resize smart +50'
+
+    # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
+    alt-1 = 'workspace 1'
+    alt-2 = 'workspace 2'
+    alt-3 = 'workspace 3'
+    alt-4 = 'workspace 4'
+    alt-q = 'workspace 5'
+    alt-w = 'workspace 6'
+    alt-e = 'workspace 7'
+    alt-r = 'workspace 8'
+    alt-a = 'workspace 9'
+
+    # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
+    alt-shift-1 = 'move-node-to-workspace 1'
+    alt-shift-2 = 'move-node-to-workspace 2'
+    alt-shift-3 = 'move-node-to-workspace 3'
+    alt-shift-4 = 'move-node-to-workspace 4'
+    alt-shift-q = 'move-node-to-workspace 5'
+    alt-shift-w = 'move-node-to-workspace 6'
+    alt-shift-e = 'move-node-to-workspace 7'
+    alt-shift-r = 'move-node-to-workspace 8'
+    alt-shift-a = 'move-node-to-workspace 9'
+
+    # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
+    alt-tab = 'workspace-back-and-forth'
+    # See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
+    alt-shift-tab = 'exec-and-forget aerospace move-workspace-to-monitor --wrap-around next && sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+
+    # See: https://nikitabobko.github.io/AeroSpace/commands#mode
+    alt-shift-semicolon = 'mode service'
+
+    # Exec commands
+    alt-s = 'exec-and-forget aerospace workspace "$(aerospace list-workspaces --monitor mouse --visible)" && aerospace workspace prev --wrap-around'
+    alt-d = 'exec-and-forget aerospace workspace "$(aerospace list-workspaces --monitor mouse --visible)" && aerospace workspace next --wrap-around'
+    keypadDivide = 'exec-and-forget aerospace workspace "$(aerospace list-workspaces --monitor mouse --visible)" && aerospace workspace prev --wrap-around'
+    keypadMultiply = 'exec-and-forget aerospace workspace "$(aerospace list-workspaces --monitor mouse --visible)" && aerospace workspace next --wrap-around'
+    alt-t = 'exec-and-forget brew services restart sketchybar'
+
+
+# 'service' binding mode declaration.
+# ==================================================================================
+# See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
+[mode.service.binding]
+    esc = ['reload-config', 'mode main']
+    r = ['flatten-workspace-tree', 'mode main'] # reset layout
+    f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
+    backspace = ['close-all-windows-but-current', 'mode main']
+
+    # sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2
+    #s = ['layout sticky tiling', 'mode main']
+
+    alt-shift-h = ['join-with left', 'mode main']
+    alt-shift-j = ['join-with down', 'mode main']
+    alt-shift-k = ['join-with up', 'mode main']
+    alt-shift-l = ['join-with right', 'mode main']
+
+    down = 'volume down'
+    up = 'volume up'
+    shift-down = ['volume set 0', 'mode main']
+
+
+# Layout and Workspace Assignments
+# ===================================================================================
+[workspace-to-monitor-force-assignment]
+    1 = 2  # Monitor sequence number from left to right. 1-based indexing
+    2 = 2
+    3 = 2
+    4 = 2
+    5 = 1
+    6 = 1
+    7 = 1
+    8 = 1
+
+
+# User `aerospace list-apps` to see 'em
+# Built-in Main Tiled Apps
+# ====================================================================================
+# Calendar
+[[on-window-detected]]
+    if.app-name-regex-substring = 'Calendar'
+    check-further-callbacks = true
+    run = ['layout tiling', 'move-node-to-workspace 5']
+
+# Spotify
+[[on-window-detected]]
+    if.app-id = 'com.spotify.client'
+    check-further-callbacks = true
+    run = ['layout tiling', 'move-node-to-workspace 5']
+
+# Signal
+[[on-window-detected]]
+    if.app-id = 'org.whispersystems.signal-desktop'
+    check-further-callbacks = true
+    run = ['layout tiling', 'move-node-to-workspace 5']
+
+# Built-in Floating Apps
+# ====================================================================================
+# Mail
+[[on-window-detected]]
+    if.app-id = 'io.canarymail.mac'
+    check-further-callbacks = true
+    run = ['layout floating', 'move-node-to-workspace 5']
+
+# NextCloud
+[[on-window-detected]]
+    if.app-id = 'com.nextcloud.desktopclient'
+    check-further-callbacks = true
+    run = ['layout floating', 'move-node-to-workspace 5']
+
+# Slack
+[[on-window-detected]]
+    if.app-id = 'com.tinyspeck.slackmacgap'
+    check-further-callbacks = true
+    run = ['layout floating', 'move-node-to-workspace 5']
+
+# Discord
+[[on-window-detected]]
+    if.app-id = 'com.hnc.Discord'
+    check-further-callbacks = true
+    run = ['layout floating', 'move-node-to-workspace 5']
+
+# Messages
+[[on-window-detected]]
+    if.app-id = 'com.apple.MobileSMS'
+    check-further-callbacks = true
+    run = ['layout floating', 'move-node-to-workspace 5']
+
+# Others to specific workspaces
+# ====================================================================================
+# Textastic
+[[on-window-detected]]
+    if.app-id = 'com.textasticapp.textastic-mac'
+    check-further-callbacks = true
+    run = ['layout floating', 'move-node-to-workspace 6']
+
+# Notion
+[[on-window-detected]]
+    if.app-id = 'notion.id'
+    check-further-callbacks = true
+    run = ['layout tiling', 'move-node-to-workspace 1']
+
+# Browser
+[[on-window-detected]]
+    if.app-id = 'org.chromium.Thorium'
+    check-further-callbacks = true
+    run = ['layout tiling', 'move-node-to-workspace 1']
+
+# Finder
+[[on-window-detected]]
+    if.app-id = 'com.apple.finder'
+    check-further-callbacks = true
+    run = ['layout tiling', 'move-node-to-workspace 3']
+
+# Term
+[[on-window-detected]]
+    if.app-id = 'com.googlecode.iterm2'
+    check-further-callbacks = true
+    run = ['layout tiling', 'move-node-to-workspace 2']
+
+# VSCode
+[[on-window-detected]]
+    if.app-id = 'com.microsoft.VSCode'
+    check-further-callbacks = true
+    run = ['layout tiling', 'move-node-to-workspace 2']
+
+# But anything out of the ordinary just gets floated
+# ====================================================================================
+[[on-window-detected]]
+    run = 'layout floating'
+
+
+# ====================================================================================
+# ============================= EXTRANEOUS DOC STUFF =================================
+# ====================================================================================
+    # All possible keys:
+    # - Letters.        a, b, c, ..., z
+    # - Numbers.        0, 1, 2, ..., 9
+    # - Keypad numbers. keypad0, keypad1, keypad2, ..., keypad9
+    # - F-keys.         f1, f2, ..., f20
+    # - Special keys.   minus, equal, period, comma, slash, backslash, quote, semicolon,
+    #                   backtick, leftSquareBracket, rightSquareBracket, space, enter, esc,
+    #                   backspace, tab, pageUp, pageDown, home, end, forwardDelete,
+    #                   sectionSign (ISO keyboards only, european keyboards only)
+    # - Keypad special. keypadClear, keypadDecimalMark, keypadDivide, keypadEnter, keypadEqual,
+    #                   keypadMinus, keypadMultiply, keypadPlus
+    # - Arrows.         left, down, up, right
+
+    # All possible modifiers: cmd, alt, ctrl, shift
+
+    # See: https://nikitabobko.github.io/AeroSpace/commands#exec-and-forget
+    # You can uncomment the following lines to open up terminal with alt + enter shortcut
+    # (like in i3)
+    # alt-enter = '''exec-and-forget osascript -e '
+    # tell application "Terminal"
+    #     do script
+    #     activate
+    # end tell'
+    # '''
