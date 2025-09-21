@@ -1,6 +1,8 @@
 # SketchyMenu
 I went down a rabbit hole and built out some things I wanted and didn't see for FelixKratz's absolutely amazing [SketchyBar](https://github.com/FelixKratz/SketchyBar). Hope everyone finds these useful!
 
+Feel free to make any improvements and hit me up for the PR review.
+
 ## Visuals
 ![Main features 1](sketchybar/images/main-features-1.jpg)
 
