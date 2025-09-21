@@ -77,13 +77,13 @@ done
 # Update the anchor icon based on whether we have notifications
 if [ "$HAS_NOTIFICATIONS" = true ]; then
     # Show notification icon with accent color when there are notifications
-    sketchybar --set $NAME.anchor \
+    sketchybar --set notifs.anchor \
         icon="󰂚" \
         icon.color="$(get_color GREY 100)" \
         background.color="$(get_color YELLOW 40)"
 else
     # Show dimmed icon when no notifications
-    sketchybar --set $NAME.anchor \
+    sketchybar --set notifs.anchor \
         icon="󰂜" \
         icon.color="$(get_color GREY 50)" \
         background.color="$(get_color GREY 20)"
